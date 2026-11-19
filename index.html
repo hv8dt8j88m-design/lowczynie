@@ -7,15 +7,32 @@
 <meta name="apple-mobile-web-app-title" content="Łowczynie">
 <meta name="theme-color" content="#1b1138">
 <title>Łowczynie Tabliczki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 /* Scena koncertu K-pop nocą: neon róż + błękit; trasa koncertowa = 10 liczb; karty fotki = postęp; Bałaganiki = słodkie potworki */
 :root{
   --bg:#1b1138; --bg2:#2a1b55; --card:#251850; --card2:#2f2063; --ink:#fbf4ff; --muted:#c7b8e8; --line:#4a3a86;
   --pink:#ff5fa2; --pink-soft:#4a2050; --cyan:#3fe0ff; --cyan-soft:#173e5c; --gold:#ffd257; --gold-soft:#4a3a17;
   --good:#5fe39a; --good-soft:#163d2c; --bad:#ff7a8a; --bad-soft:#4a1f2a;
-  --f:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+  --f:"M PLUS Rounded 1c",ui-rounded,"SF Pro Rounded",-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+  --d:"Dela Gothic One","Arial Black",Impact,sans-serif;
+  --holo:linear-gradient(115deg,#ff9ad5,#c7b3ff 25%,#9ef0ff 45%,#fff3a8 60%,#ffb3dc 80%,#b4a2ff);
   color-scheme:dark;
 }
+.bgfx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bgfx .beam{position:absolute;top:-10%;width:22vw;height:130vh;transform-origin:top center;opacity:.13;filter:blur(2px)}
+.bgfx .bok{position:absolute;border-radius:50%;opacity:.35;animation:float 9s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-18px)}}
+.wrap{position:relative;z-index:1}
+h1,h2,.stage .n,.task,.bigstars,.target b{font-family:var(--d);font-weight:400;letter-spacing:.01em}
+h1{background:var(--holo);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 10px rgba(255,95,162,.45))}
+.burst{position:fixed;left:50%;top:38%;z-index:60;pointer-events:none;transform:translate(-50%,-50%) rotate(-8deg);animation:burst .9s ease-out forwards}
+.burst svg{width:min(70vw,360px);height:auto;display:block}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.3) rotate(-14deg);opacity:0}25%{transform:translate(-50%,-50%) scale(1.08) rotate(-8deg);opacity:1}75%{opacity:1}100%{transform:translate(-50%,-50%) scale(1.15) rotate(-6deg);opacity:0}}
+.speed{position:fixed;inset:0;z-index:55;pointer-events:none;background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(255,255,255,.0) 0deg 4deg,rgba(255,255,255,.10) 4deg 5deg);animation:fade .6s ease-out forwards}
+@keyframes fade{to{opacity:0}}
+@media (prefers-reduced-motion:reduce){.burst,.speed,.bgfx .bok{animation:none}.speed{display:none}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:18px;line-height:1.45;
@@ -83,7 +100,8 @@ p{margin:0}
 .album{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
 .stk{border:2px dashed var(--line);border-radius:14px;padding:6px 4px;text-align:center;font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums;background:var(--card2)}
 .stk .e{font-size:2rem;display:block;line-height:1.2}
-.stk.on{border-style:solid;border-color:var(--pink);background:linear-gradient(160deg,var(--pink-soft),var(--cyan-soft));box-shadow:0 0 10px rgba(255,95,162,.35)}
+.stk.on{border:3px solid transparent;background:linear-gradient(160deg,#2a1b55,#1a1030) padding-box,var(--holo) border-box;background-size:auto,300% 300%;animation:holo 4s linear infinite;box-shadow:0 0 12px rgba(255,154,213,.35)}
+@keyframes holo{to{background-position:0 0,300% 0}}
 .stk.part{border-color:var(--gold)}
 .stk .bar{height:6px;border-radius:3px;background:var(--line);margin-top:4px;overflow:hidden}
 .stk .bar i{display:block;height:100%;background:var(--gold)}
@@ -115,6 +133,16 @@ p{margin:0}
 </style>
 </head>
 <body>
+<div class="bgfx" aria-hidden="true">
+  <div class="beam" style="left:8%;transform:rotate(16deg);background:linear-gradient(#ff4fb0,transparent 80%)"></div>
+  <div class="beam" style="left:42%;transform:rotate(-6deg);background:linear-gradient(#5ee7ff,transparent 80%)"></div>
+  <div class="beam" style="left:74%;transform:rotate(-20deg);background:linear-gradient(#b98cff,transparent 80%)"></div>
+  <div class="bok" style="left:6%;top:12%;width:90px;height:90px;background:radial-gradient(#ff7ac8,transparent 70%)"></div>
+  <div class="bok" style="left:82%;top:8%;width:130px;height:130px;background:radial-gradient(#5ee7ff,transparent 70%);animation-delay:-3s"></div>
+  <div class="bok" style="left:66%;top:62%;width:70px;height:70px;background:radial-gradient(#ffd36b,transparent 70%);animation-delay:-5s"></div>
+  <div class="bok" style="left:18%;top:70%;width:110px;height:110px;background:radial-gradient(#b98cff,transparent 70%);animation-delay:-2s"></div>
+  <div class="bok" style="left:46%;top:30%;width:50px;height:50px;background:radial-gradient(#ff9ad5,transparent 70%);animation-delay:-7s"></div>
+</div>
 <div class="wrap">
   <div id="err" class="err" hidden></div>
   <noscript><div class="err">Ta gra potrzebuje włączonego JavaScriptu. Otwórz ją w Safari.</div></noscript>
@@ -134,8 +162,30 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const rnd=n=>Math.floor(Math.random()*n);
 const pick=a=>a[rnd(a.length)];
 
-/* ---------- postacie (własne) ---------- */
+/* ---------- postacie (własne, styl anime) ---------- */
+let HID=0;
 function heroine(hair,top,kind,acc){
+  const id='h'+(HID++),h1=hair[0],h2=hair[1],h3=hair[2],eye=top[1],outfit=top[0];
+  const back=kind==='twin'?'<path d="M30 80 C0 120 4 190 20 230 C30 190 34 140 44 110 Z M170 80 C200 120 196 190 180 230 C170 190 166 140 156 110 Z" fill="url(#'+id+')"/>'
+    :kind==='pony'?'<path d="M150 70 C200 90 210 170 175 240 C172 190 160 140 140 110 Z" fill="url(#'+id+')"/>'
+    :'<path d="M44 120 C40 170 50 210 46 236 L154 236 C150 210 160 170 156 120 Z" fill="url(#'+id+')"/>';
+  return '<svg viewBox="0 0 200 270" aria-hidden="true"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+h1+'"/><stop offset=".6" stop-color="'+h2+'"/><stop offset="1" stop-color="'+h3+'"/></linearGradient></defs>'+back+
+  '<path d="M50 236 Q100 206 150 236 L166 270 L34 270 Z" fill="'+outfit+'"/><path d="M64 240 L100 266 L136 240" stroke="#ffffff" stroke-opacity=".7" stroke-width="3" fill="none"/>'+
+  '<path d="M86 196 L114 196 L112 222 L88 222 Z" fill="#f7d7c8"/>'+
+  '<path d="M48 120 C46 70 70 44 100 44 C130 44 154 70 152 120 C150 170 128 200 100 204 C72 200 50 170 48 120 Z" fill="#fde6da"/>'+
+  '<path d="M52 140 C56 172 76 196 100 200 C88 186 70 168 62 142 Z" fill="#f2cdbd"/>'+
+  '<path d="M44 118 C40 56 76 26 104 28 C140 30 164 62 158 120 C150 92 134 78 120 74 C116 92 100 100 84 98 C90 88 92 80 90 72 C76 84 60 98 44 118 Z" fill="url(#'+id+')"/>'+
+  '<path d="M70 58 C90 40 120 40 140 60" stroke="#ffffff" stroke-opacity=".45" stroke-width="3" fill="none"/>'+
+  '<path d="M60 128 Q76 116 92 126" stroke="#2a1840" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M108 126 Q124 116 140 128" stroke="#2a1840" stroke-width="3.4" fill="none" stroke-linecap="round"/>'+
+  '<ellipse cx="77" cy="140" rx="11" ry="14" fill="#2a1840"/><ellipse cx="123" cy="140" rx="11" ry="14" fill="#2a1840"/>'+
+  '<ellipse cx="77" cy="143" rx="8" ry="10" fill="'+eye+'"/><ellipse cx="123" cy="143" rx="8" ry="10" fill="'+eye+'"/>'+
+  '<ellipse cx="77" cy="147" rx="4.5" ry="5.5" fill="#1a1030" opacity=".55"/><ellipse cx="123" cy="147" rx="4.5" ry="5.5" fill="#1a1030" opacity=".55"/>'+
+  '<circle cx="73" cy="136" r="4" fill="#ffffff"/><circle cx="119" cy="136" r="4" fill="#ffffff"/><circle cx="81" cy="148" r="1.8" fill="#ffffff"/><circle cx="127" cy="148" r="1.8" fill="#ffffff"/>'+
+  '<ellipse cx="66" cy="164" rx="9" ry="4" fill="#ff8fb8" opacity=".55"/><ellipse cx="134" cy="164" rx="9" ry="4" fill="#ff8fb8" opacity=".55"/>'+
+  '<path d="M92 176 Q100 182 108 176" stroke="#c2456b" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+  '<text x="'+(kind==='pony'?52:138)+'" y="78" font-size="22">'+acc+'</text>'+
+  '<rect x="150" y="214" width="8" height="34" rx="3" fill="#e6e6f0"/><circle cx="154" cy="210" r="10" fill="#b8b8d0"/><path d="M146 210 h16" stroke="#7a7a9a" stroke-width="1.5"/></svg>'}
+function heroineOld(hair,top,kind,acc){
   const back=kind==='twin'?'<circle cx="18" cy="62" r="16" fill="'+hair+'"/><circle cx="102" cy="62" r="16" fill="'+hair+'"/>'
     :kind==='pony'?'<path d="M92 40 Q122 60 104 112 Q96 80 84 64 Z" fill="'+hair+'"/>'
     :'<rect x="22" y="40" width="76" height="52" rx="22" fill="'+hair+'"/>';
@@ -150,7 +200,7 @@ function heroine(hair,top,kind,acc){
   '<path d="M52 80 Q60 88 68 80" stroke="#c2456b" stroke-width="3" fill="none" stroke-linecap="round"/>'+
   '<text x="'+(kind==='pony'?36:78)+'" y="38" font-size="16">'+acc+'</text>'+
   '<rect x="92" y="118" width="7" height="26" rx="3" fill="#dddddd"/><circle cx="95.5" cy="114" r="8" fill="#99aaaa"/></svg>'}
-const HEROES=[heroine('#3b6cff','#ff5fa2','bob','⭐'),heroine('#ff8a3d','#3fe0ff','pony','🎀'),heroine('#2fd3a5','#b46bff','twin','🌙')];
+const HEROES=[heroine(['#2b2f7a','#4a5be0','#8fb4ff'],['#ff4fb0','#4fd4ff'],'bob','⭐'),heroine(['#7a2a12','#ff7a3d','#ffc38a'],['#3fe0ff','#ffb347'],'pony','🎀'),heroine(['#0f5a52','#2fd3a5','#a8ffe6'],['#b46bff','#ff7ac8'],'twin','🌙')];
 const HERO_NAMES=['Luna','Kiki','Sora'];
 function blob(col){return '<svg viewBox="0 0 160 150" class="mon" aria-hidden="true">'+
   '<path d="M46 34 L54 12 L64 30 Z M96 30 L106 12 L114 34 Z" fill="#ffd257"/>'+
@@ -204,6 +254,10 @@ const sWin=()=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,.16,'triangle',i*.
 function confetti(){const it=['💖','⭐','✨','💜','🎵','🌟'];
   for(let i=0;i<50;i++){const c=el('span','conf',pick(it));c.style.left=rnd(100)+'vw';c.style.animationDelay=(Math.random()*.6)+'s';c.style.animationDuration=(1.8+Math.random()*1.4)+'s';document.body.append(c);setTimeout(()=>c.remove(),3600)}}
 
+function burst(txt){const sp=el('div','speed');document.body.append(sp);setTimeout(()=>sp.remove(),650);
+  const b=el('div','burst');const col=pick(['#ffd36b','#5ee7ff','#ff9ad5']);
+  b.innerHTML='<svg viewBox="0 0 300 170"><path d="M150 4 L176 44 L222 18 L216 64 L290 60 L240 96 L286 140 L214 128 L206 166 L162 132 L120 168 L110 128 L36 150 L74 104 L10 70 L82 62 L70 14 L124 44 Z" fill="'+col+'" stroke="#1a1030" stroke-width="6" stroke-linejoin="round"/><text x="150" y="104" text-anchor="middle" font-size="34" fill="#1a1030" style="font-family:var(--d)">'+txt+'</text></svg>';
+  document.body.append(b);setTimeout(()=>b.remove(),950)}
 /* ---------- pytanie z klawiaturą ---------- */
 function ask(host,a,b,form,onDone){
   const q=el('div','q');const t=el('div','task');const ans=el('span','ans',' ');
@@ -215,7 +269,7 @@ function ask(host,a,b,form,onDone){
     ans.classList.add(ok?'good':'bad');t.classList.add(ok?'pop':'shake');
     fb.className='fb '+(ok?'good':'bad');
     fb.textContent=ok?(ms<6000?pick(['Super!','Brawo!','Ekstra!','Gwiazda!','Wow, mistrzyni!','Fighting!']):'Dobrze! Następnym razem szybciej.'):'Prawie! '+a+' · '+b+' = '+(a*b);
-    ok?sGood():sBad();document.removeEventListener('keydown',kb);onDone(ok,ms)}
+    ok?sGood():sBad();if(ok)burst(ms<6000?pick(['PERFECT!','SUPER!','WOW!','BRAWO!','최고!']):'DOBRZE!');document.removeEventListener('keydown',kb);onDone(ok,ms)}
   ['1','2','3','4','5','6','7','8','9','⌫','0','OK'].forEach(k=>{const x=el('button','key'+(k==='OK'?' ok':''),k);x.type='button';x.addEventListener('click',()=>press(k));pad.append(x)});
   function kb(e){if(!q.isConnected){document.removeEventListener('keydown',kb);return}
     if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('⌫');else if(e.key==='Enter'){e.preventDefault();press('OK')}}
@@ -237,7 +291,7 @@ function go(id,arg){token++;window.scrollTo(0,0);(ROUTES[id]||ROUTES.mapa)(arg);
 /* ---------- ekrany ---------- */
 const ROUTES={
 mapa(){topbar(false);app.innerHTML='';
-  const hero=el('div','hero');hero.append(H('div','band',HEROES.join('')),H('div',null,'<h2>Luna, Kiki i Sora ruszają w trasę!</h2><p>Bałaganiki – małe, psotne potworki – pomieszały liczby. Dziewczyny pokonują je piosenką… ale tylko gdy znasz dobre wyniki! Każda scena to jedna liczba. Zdobądź gwiazdkę, żeby odblokować następną. Za każde działanie, które umiesz na pamięć, dostajesz <b>kartę fotkę</b>.</p>'));
+  const hero=el('div','hero');hero.append(H('div','band',HEROES.join('')),H('div',null,'<h2>Luna, Kiki i Sora ruszają w trasę!</h2><p>Bałaganiki – psotne duszki dokkaebi z koreańskich baśni – pomieszały liczby. Dziewczyny pokonują je piosenką… ale tylko gdy znasz dobre wyniki! Każda scena to jedna liczba. Zdobądź gwiazdkę, żeby odblokować następną. Za każde działanie, które umiesz na pamięć, dostajesz <b>kartę fotkę</b>.</p>'));
   app.append(hero);
   const c=el('div','card');c.append(el('h2',null,'🎤 Trasa koncertowa'));
   const m=el('div','map');
