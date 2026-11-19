@@ -306,7 +306,11 @@ mapa(){topbar(false);app.innerHTML='';
   gm('📸','Karty fotki',cardCount()+' z '+FACTS.length+' kart w kolekcji','album');
   gm('🃏','Memory','Dobierz działanie do wyniku','memory');
   gm('💖','Świecące serca','Łap serca z dobrym wynikiem','balony');
-  app.append(g)},
+  app.append(g);
+  const rr=el('div','row');const rs=B('↺ Zacznij grę od nowa','sec confirm');let armed=false,tm=null;
+  rs.onclick=()=>{if(!armed){armed=true;rs.textContent='Na pewno? Stuknij jeszcze raz – wszystkie gwiazdki i karty znikną';clearTimeout(tm);tm=setTimeout(()=>{armed=false;rs.textContent='↺ Zacznij grę od nowa'},5000);return}
+    const snd=S.sound;S={box:{},stars:{},trophy:0,mem:0,bal:0,sound:snd};save();go('mapa')};
+  rr.append(rs);app.append(rr)},
 
 wyspa(n){n=+n;topbar(true);app.innerHTML='';const my=++token;
   const c=el('div','card');app.append(c);
